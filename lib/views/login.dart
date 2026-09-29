@@ -19,13 +19,21 @@ class _LoginPageState extends State<LoginPage> {
     String username = usernameController.text;
     String password = passwordController.text;
 
-    if (username == user1.username && password == user1.password) {
+    if(username.trim().isEmpty || password.trim().isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.orangeAccent,
+          content: Text("Login Gagal. Username atau Password tidak boleh kosong"),
+        )
+      );
+    } 
+    
+     else if (username == user1.username && password == user1.password) {
       setState(() {
         isLoggedIn = true;
       });
-
     Navigator.pushReplacement(context, 
-    MaterialPageRoute(builder: (context) => Root()),
+    MaterialPageRoute(builder: (context) => Root(username: username,)),
     );
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -34,7 +42,8 @@ class _LoginPageState extends State<LoginPage> {
           content: Text("Login Berhasil"),
         ),
       );
-    } else {
+     }
+    else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Colors.red,
@@ -87,6 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: login,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 96, 124, 247),
+                      foregroundColor: Colors.white
                     ),
                     child: Text("Login"),
                   ),
