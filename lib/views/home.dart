@@ -22,8 +22,9 @@ class _HomePageState extends State<HomePage> {
     return menus.where((item) {
       final matchesCategory =
           selectedCategory == "Semua" || item.category == selectedCategory;
-      final matchesSearch =
-          item.name.toLowerCase().contains(searchQuery.toLowerCase());
+      final matchesSearch = item.name.toLowerCase().contains(
+        searchQuery.toLowerCase(),
+      );
       return matchesCategory && matchesSearch;
     }).toList();
   }
@@ -74,8 +75,9 @@ class _HomePageState extends State<HomePage> {
                   selectedColor: Colors.blueAccent,
                   labelStyle: TextStyle(
                     color: isSelected ? Colors.white : Colors.black87,
-                    fontWeight:
-                        isSelected ? FontWeight.bold : FontWeight.normal,
+                    fontWeight: isSelected
+                        ? FontWeight.bold
+                        : FontWeight.normal,
                   ),
                   onSelected: (selected) {
                     if (selected) {
@@ -119,7 +121,9 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             menu.category,
                             style: TextStyle(
-                                color: Colors.grey[600], fontSize: 12),
+                              color: Colors.grey[600],
+                              fontSize: 12,
+                            ),
                           ),
                           Text(
                             menu.price,
@@ -130,17 +134,20 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                      leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.network(
-                          menu.image,
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover,
+                      leading: Hero(
+                        tag:
+                            'menu-img-${menu.id}', // Tag unik berdasarkan ID menu
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            "${menu.image}?w=200",
+                            width: 50,
+                            height: 50,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                      trailing:
-                          const Icon(Icons.arrow_forward_ios, size: 16),
+                      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                     );
                   },
                 ),
